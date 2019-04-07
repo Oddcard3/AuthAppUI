@@ -10,18 +10,18 @@
     </div>
     <form>
         <div class="form-group">
-        <label for="exampleInputEmail1">Login</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <label for="inputLogin">Login</label>
+        <input [(ngModel)]="creds.login" type="login" class="form-control" id="inputLogin" aria-describedby="loginHelp" placeholder="Enter login">
         </div>
         <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label for="inputPassword">Password</label>
+        <input [(ngModel)]="creds.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
         </div>
         <div class="form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Remember me</label>
         </div>
-        <button type="submit" class="btn btn-primary" id="sign_in_btn">Sign in</button>
+        <button type="submit" class="btn btn-primary" id="sign_in_btn" (click)="onSignin(creds)">Sign in</button>
       </form>
   </div>
 </div>

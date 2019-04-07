@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Credentials } from '../models/credentials.model'
+import {Store, select} from '@ngrx/store'
+import { selectInProgress } from '../store/selectors/login.selector'
+import { Login } from '../store/actions/login.actions'
+import {IAppState} from '../store/state/app.state'
 
 @Component({
   selector: 'app-root',
@@ -7,4 +12,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'AuthAppUI';
+
+  creds: Credentials = {login: '', password: ''}
+
+  ngOnInit() {
+  }
+
+  inProgress$ = this._store.pipe(select(selectInProgress));
+
+  constructor(private _store: Store<IAppState>) {}
+
+  onSignin(credentials: Credentials): void {
+    console.info("Signin")
+    this._store.dispatch(new Login({credentials: this.creds}))
+  }
 }

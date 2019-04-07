@@ -1,3 +1,3 @@
 export interface Token {
-    id: object;
+    token: string;
 }
