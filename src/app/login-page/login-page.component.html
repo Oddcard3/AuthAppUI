@@ -1,3 +1,27 @@
-<p>
-  login-page works!
-</p>
+<div class="container h-100">
+  <div class="container col-12 col-md-4 h-100">
+    <div class="row h-25">
+
+    </div>
+    <div class="row justify-content-center">
+      <div>
+        <h2>Sign in</h2>
+      </div>
+    </div>
+    <form #loginForm="ngForm">
+        <div class="form-group">
+        <label for="inputLogin">Login</label>
+        <input [(ngModel)]="creds.login" name="login" class="form-control" id="inputLogin" aria-describedby="loginHelp" placeholder="Enter login">
+        </div>
+        <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input [(ngModel)]="creds.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+        <div class="form-check">
+        <input [(ngModel)]="rememberMe" name="rememberMe" type="checkbox" class="form-check-input" id="rememberMeFlag">
+        <label class="form-check-label" for="rememberMeFlag">Remember me</label>
+        </div>
+        <button type="submit" class="btn btn-primary" id="sign_in_btn" (click)="onSignin(creds)">Sign in</button>
+      </form>
+  </div>
+</div>

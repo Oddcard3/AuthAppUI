@@ -9,3 +9,13 @@ export const selectInProgress = createSelector(
     selectLogin,
     (state: ILoginState) => state.inProgress
 );
+
+export const selectLoggedIn = createSelector(
+    selectLogin,
+    (state: ILoginState) => state.loggedIn
+);
+
+export const selectToken = createSelector(
+    selectLogin,
+    (state: ILoginState) => state.token
+);

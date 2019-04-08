@@ -8,7 +8,8 @@ export enum EAuthActions {
   Login = '[Auth] Login',
   LoginSuccess = '[Auth] Login Success',
   LoginFailure = '[Auth] Login Failure',
-  LoginRedirect = '[Auth] Login Redirect'
+  LoginRedirect = '[Auth] Login Redirect',
+  AuthLogout = '[Auth] Logout'
 }
 
 export class Login implements Action {
@@ -33,7 +34,11 @@ export class LoginRedirect implements Action {
   public readonly type = EAuthActions.LoginRedirect;
 }
 
-export type AuthActionTypes = Login | LoginSuccess | LoginFailure | LoginRedirect;
+export class AuthLogout implements Action {
+  public readonly type = EAuthActions.AuthLogout;
+}
+
+export type AuthActionTypes = Login | LoginSuccess | LoginFailure | LoginRedirect | AuthLogout;
 
 
 // export const login = createAction(

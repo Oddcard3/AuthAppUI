@@ -14,6 +14,20 @@ export const loginReducers = (
                 inProgress: true
             };
         }
+        case EAuthActions.LoginSuccess: {
+            return {
+                ...state,
+                token: action.payload.token.token,
+                loggedIn: true
+            };
+        }
+        case EAuthActions.AuthLogout: {
+            return {
+                ...state,
+                token: null,
+                loggedIn: false
+            };
+        }
         default:
         return state;
     }

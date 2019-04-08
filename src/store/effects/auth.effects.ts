@@ -3,10 +3,10 @@ import { Actions, ofType, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { map, exhaustMap, catchError, tap } from 'rxjs/operators';
-import { AuthService } from '../../app/auth-service.service'
-import { Credentials } from '../../models/credentials.model'
-import { Token } from '../../models/token.model'
-import { AuthActions } from '../actions'
+import { AuthService } from '../../app/auth-service.service';
+import { Credentials } from '../../models/credentials.model';
+import { Token } from '../../models/token.model';
+import { AuthActions } from '../actions';
  
 @Injectable()
 export class AuthEffects {
@@ -39,6 +39,24 @@ export class AuthEffects {
           tap(token => localStorage.setItem('token', token.token)),
           tap(() => this.router.navigate(['/']))
         );
+
+    @Effect({ dispatch: false })
+    loginRedirect$ =
+        this.actions$.pipe(
+          ofType(AuthActions.EAuthActions.LoginRedirect),
+          tap(authed => {
+            this.router.navigate(['/login']);
+          })
+    );
+
+    @Effect({ dispatch: false })
+    logout$ =
+        this.actions$.pipe(
+          ofType(AuthActions.EAuthActions.AuthLogout),
+          tap(authed => {
+            this.router.navigate(['/login']);
+          })
+    );
 
   constructor(
     private actions$: Actions,
