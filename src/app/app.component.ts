@@ -13,7 +13,8 @@ import {IAppState} from '../store/state/app.state'
 export class AppComponent {
   title = 'AuthAppUI';
 
-  creds: Credentials = {login: '', password: ''}
+  creds: Credentials = {login: '', password: ''};
+  rememberMe: boolean;
 
   ngOnInit() {
   }

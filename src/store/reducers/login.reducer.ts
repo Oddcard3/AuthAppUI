@@ -15,6 +15,6 @@ export const loginReducers = (
             };
         }
         default:
-        return state
+        return state;
     }
 }

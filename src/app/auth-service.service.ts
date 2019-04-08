@@ -7,6 +7,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(data: Credentials) {
-    return this.http.post(`localhost:8080/auth/login`, data);
+    return this.http.post('http://localhost:4200/auth/login', data);
   }
 }

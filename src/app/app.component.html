@@ -8,18 +8,18 @@
         <h2>Sign in</h2>
       </div>
     </div>
-    <form>
+    <form #loginForm="ngForm">
         <div class="form-group">
         <label for="inputLogin">Login</label>
-        <input [(ngModel)]="creds.login" type="login" class="form-control" id="inputLogin" aria-describedby="loginHelp" placeholder="Enter login">
+        <input [(ngModel)]="creds.login" name="login" class="form-control" id="inputLogin" aria-describedby="loginHelp" placeholder="Enter login">
         </div>
         <div class="form-group">
         <label for="inputPassword">Password</label>
-        <input [(ngModel)]="creds.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+        <input [(ngModel)]="creds.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
         </div>
         <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+        <input [(ngModel)]="rememberMe" name="rememberMe" type="checkbox" class="form-check-input" id="rememberMeFlag">
+        <label class="form-check-label" for="rememberMeFlag">Remember me</label>
         </div>
         <button type="submit" class="btn btn-primary" id="sign_in_btn" (click)="onSignin(creds)">Sign in</button>
       </form>

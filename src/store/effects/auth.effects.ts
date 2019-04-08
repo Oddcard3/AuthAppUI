@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, exhaustMap, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { map, exhaustMap, catchError, tap } from 'rxjs/operators';
 import { AuthService } from '../../app/auth-service.service'
 import { Credentials } from '../../models/credentials.model'
 import { Token } from '../../models/token.model'
@@ -9,7 +10,7 @@ import { AuthActions } from '../actions'
  
 @Injectable()
 export class AuthEffects {
- 
+
   @Effect()
   login$ = this.actions$.pipe(
       ofType(AuthActions.EAuthActions.Login),
@@ -17,20 +18,31 @@ export class AuthEffects {
       exhaustMap((auth: Credentials) =>
         this.authService.login(auth).pipe(
           map(data => {
-            let token = data as Token 
+            const token = data as Token;
             if ((token as any).error) {
-              let err: any = token as any
+              const err: any = token as any;
               return new AuthActions.LoginFailure({ error: err });
-            } else
+            } else {
               return new AuthActions.LoginSuccess({ token });
+            }
           }),
           catchError(error => of(new AuthActions.LoginFailure({ error })))
         )
       )
     );
- 
+
+    @Effect({ dispatch: false })
+    loginSuccess$ =
+        this.actions$.pipe(
+          ofType(AuthActions.EAuthActions.LoginSuccess),
+          map(action => (action as AuthActions.LoginSuccess).payload.token),
+          tap(token => localStorage.setItem('token', token.token)),
+          tap(() => this.router.navigate(['/']))
+        );
+
   constructor(
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 }
