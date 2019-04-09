@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   // inProgress$ = this.store.pipe(select(selectInProgress));
 
   ngOnInit() {
-    //  this.store.dispatch(new Login({credentials: this.creds}));
+    // this.store.dispatch(new Login({credentials: this.creds}));
   }
 
   constructor(private store: Store<IAppState>) {}

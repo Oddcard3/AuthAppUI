@@ -1,4 +1,17 @@
 <h1>Chat</h1>
-<nav>
-  <a routerLink="/login">Login</a>
+<nav class="nav">
+  <!--a class="nav-link" routerLink="/login">Login</a-->
+  <button type="button" class="btn btn-secondary" (click)="logout()">Logout</button>
 </nav>
+
+<div *ngIf="inProgress$ | async; else elseBlock">In progress</div>
+<ng-template #elseBlock>
+    <div *ngIf="usersError$ | async; else elseBlockError">Error</div>
+    <ng-template #elseBlockError>
+        <ul class="heroes">
+          <li *ngFor="let user of users$ | async">
+            <span class="badge">{{user.name}}</span>
+          </li>
+        </ul>
+      </ng-template>
+</ng-template>

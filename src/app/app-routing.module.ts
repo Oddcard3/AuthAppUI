@@ -9,7 +9,9 @@ const routes: Routes = [
    canActivate: [AuthGuard],
    component: ChatComponent
   },
-  { path: 'login', component: LoginPageComponent }
+  { path: 'login',
+    component: LoginPageComponent
+  }
 ];
 
 @NgModule({

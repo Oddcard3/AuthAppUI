@@ -9,8 +9,8 @@ export interface ILoginState {
 
 export const initialLoginState: ILoginState = {
     user: null,
-    token: null,
-    loggedIn: false,
+    token: localStorage.getItem('token'),
+    loggedIn: localStorage.getItem('token') !== null,
     inProgress: false,
     invalidCreds: false,
     error: null

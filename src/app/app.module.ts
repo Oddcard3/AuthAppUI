@@ -10,7 +10,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { appReducers } from '../store/reducers/app.reducer';
 import { AuthEffects } from '../store/effects/auth.effects';
+import { ChatEffects } from '../store/effects/chat.effects';
 import { AuthService } from './auth-service.service';
+import { ChatService } from './services/chat.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -33,10 +35,11 @@ import { ChatComponent } from './chat/chat.component';
     AppRoutingModule,
     FormsModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, ChatEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [AuthService,
+    ChatService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

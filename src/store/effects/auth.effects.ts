@@ -44,6 +44,7 @@ export class AuthEffects {
     loginRedirect$ =
         this.actions$.pipe(
           ofType(AuthActions.EAuthActions.LoginRedirect),
+          tap(token => localStorage.removeItem('token')),
           tap(authed => {
             this.router.navigate(['/login']);
           })
@@ -53,6 +54,7 @@ export class AuthEffects {
     logout$ =
         this.actions$.pipe(
           ofType(AuthActions.EAuthActions.AuthLogout),
+          tap(token => localStorage.removeItem('token')),
           tap(authed => {
             this.router.navigate(['/login']);
           })
