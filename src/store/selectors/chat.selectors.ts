@@ -22,10 +22,16 @@ export const selectUsersProgress = createSelector(
 
 export const selectCurrentUser = createSelector(
     selectChat,
-    (state: IChatState) => state.users[state.users.map(u => u.id).indexOf(state.selectedUser)]
+    (state: IChatState) => state.users[state.users.map(u => u.id).indexOf(state.selectedChat)]
 );
 
 export const selectCurrentChat = createSelector(
     selectChat,
-    (state: IChatState) => state.users[state.chats.map(c => c.userId).indexOf(state.selectedUser)]
+    (state: IChatState) => state.chats[state.chats.map(c => c.id).indexOf(state.selectedChat)]
 );
+
+export const selectMessages = createSelector(
+    selectChat,
+    (state: IChatState) => state.chats[state.chats.map(c => c.userId).indexOf(state.selectedChat)].messages
+);
+

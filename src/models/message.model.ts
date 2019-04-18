@@ -5,8 +5,9 @@ export enum EMessageDirection {
 
 export interface Message {
     id: string;
-    userId: string;
+    chatId: string;
+    creator: string;
     text: string;
     dir: EMessageDirection;
-    ts: Date;
+    ts: number;
 }

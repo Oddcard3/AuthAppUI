@@ -21,12 +21,16 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token.interceptor';
 import { ChatComponent } from './chat/chat.component';
+import { MessageComponent } from './chat/components/message/message.component';
+import { UserComponent } from './chat/components/user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    ChatComponent
+    ChatComponent,
+    MessageComponent,
+    UserComponent
   ],
   imports: [
     HttpClientModule,

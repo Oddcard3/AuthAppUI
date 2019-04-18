@@ -6,7 +6,12 @@ export interface IChatState {
     loadUsers: boolean;
     loadUsersError: any;
     selectedUser: string;
+    selectedChat: string;
     chats: Chat[];
+    loadChat: boolean;
+    loadChatError: any;
+    messageSending: boolean;
+    messageSendingError: any;
 }
 
 export const initialChatState: IChatState = {
@@ -14,5 +19,10 @@ export const initialChatState: IChatState = {
     loadUsers: false,
     loadUsersError: null,
     selectedUser: null,
-    chats: []
+    selectedChat: null,
+    chats: [],
+    loadChat: false,
+    loadChatError: null,
+    messageSending: false,
+    messageSendingError: null
 };

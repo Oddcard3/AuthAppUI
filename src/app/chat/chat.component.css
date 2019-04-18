@@ -1,0 +1,37 @@
+.messageTextArea {
+    resize: none;
+    width: 100%;
+    padding: 0.5em 1em;
+    margin: 0.5em 0;
+}
+
+.messagesArea {
+    resize: none;
+    height: 100%;
+    width: 100%;
+}
+
+.sendBtn {
+    margin: auto 0.5em;
+}
+
+.logOutBtnBlock {
+    margin: auto 1em;
+}
+
+.mainBlock {
+    background-color: rgba(0,123,255,.25);
+}
+
+.messagesList {
+    overflow-y: auto;
+    padding-top: 0.5em;
+    max-height: 700px;
+    flex: 1 1 1px;
+    padding: 0 10px;
+}
+
+.messageItem {
+    max-width: 75%;
+    margin-bottom: 0.5em;
+}

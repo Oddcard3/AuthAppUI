@@ -1,0 +1,5 @@
+.msgP {
+    word-break: break-all;
+    padding: 0.5em;
+    margin-bottom: 0 !important;
+}
