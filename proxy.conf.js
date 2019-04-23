@@ -6,6 +6,14 @@ const PROXY_CONFIG = [
         ],
         target: "http://localhost:8080",
         secure: false
+    },
+    {
+        context: [
+            "/ws/*"
+        ],
+        target: "http://localhost:8080",
+        secure: false,
+        ws: true
     }
 ]
 

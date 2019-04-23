@@ -23,6 +23,7 @@ import { TokenInterceptor } from './services/token.interceptor';
 import { ChatComponent } from './chat/chat.component';
 import { MessageComponent } from './chat/components/message/message.component';
 import { UserComponent } from './chat/components/user/user.component';
+import { WebsocketModule } from './websocket';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,10 @@ import { UserComponent } from './chat/components/user/user.component';
     FormsModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([AuthEffects, ChatEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    WebsocketModule.config({
+      path: '/ws'
+    })
   ],
   providers: [AuthService,
     ChatService,

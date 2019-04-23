@@ -7,6 +7,7 @@ import { GetUsers, StartChatSuccess, IncomingMessage } from '../../store/actions
 import { AuthLogout } from '../../store/actions/login.actions';
 import { IAppState } from '../../store/state/app.state';
 import { Message, EMessageDirection } from '../../models/message.model';
+import { WebsockService } from '../services/websock.service';
 
 @Component({
   selector: 'app-chat',
@@ -46,12 +47,14 @@ export class ChatComponent implements OnInit {
     {id: '1', chatId: '1', creator: '1', text: 'OK! See you soon!', dir: EMessageDirection.Incoming, ts: Date.now()}
   ];
 
-  constructor(private store: Store<IAppState>) {}
+  constructor(private store: Store<IAppState>, private wsService: WebsockService) {}
 
   ngOnInit() {
     this.msgText = '';
     this.store.dispatch(new StartChatSuccess({id: '1', userId: '1', messages: []}));
     this.store.dispatch(new GetUsers());
+
+    this.wsService.sendMessge('Hello');
   }
 
   logout() {
