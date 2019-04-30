@@ -1,7 +1,8 @@
 import { Action } from '@ngrx/store';
 import { User } from '../../models/user.model';
-import { Message } from '../../models/message.model';
+import { Message, ChatMessage } from '../../models/message.model';
 import { Chat } from '../../models/chat.model';
+import { InitData } from '../../models/init-data.model';
 
 
 export enum EChatActions {
@@ -16,6 +17,9 @@ export enum EChatActions {
   SendMessage = '[Chat] SendMessage',
   SendMessageError = '[Chat] SendMessageError',
   SendMessageSuccess = '[Chat] SendMessageSuccess',
+  Connected = '[Chat] Connected',
+  Disconnected = '[Chat] Disconnected',
+  InitialChats = '[Chat] InitialChats',
 }
 
 export class GetUsers implements Action {
@@ -39,7 +43,7 @@ export class UsersError implements Action {
 export class IncomingMessage implements Action {
     public readonly type = EChatActions.IncomingMessage;
 
-    constructor(public payload: { message: Message }) {}
+    constructor(public payload: ChatMessage) {}
 }
 
 export class SelectUser implements Action {
@@ -85,8 +89,28 @@ export class SendMessageSuccess implements Action {
   constructor(public payload: { error: any }) {}
 }
 
+export class SetConnected implements Action {
+  public readonly type = EChatActions.Connected;
+
+  constructor() {}
+}
+
+export class SetDisconnected implements Action {
+  public readonly type = EChatActions.Disconnected;
+
+  constructor() {}
+}
+
+export class InitialChats implements Action {
+  public readonly type = EChatActions.InitialChats;
+
+  constructor(public payload: InitData) {}
+}
+
+
 export type ChatActionTypes =
   GetUsers | IncomingMessage |
   Users | UsersError | SelectUser |
   SendMessage | SendMessageSuccess | SendMessageError |
-  StartChat | StartChatSuccess | StartChatError;
+  StartChat | StartChatSuccess | StartChatError |
+  SetConnected | SetDisconnected | InitialChats;

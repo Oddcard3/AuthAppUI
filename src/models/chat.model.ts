@@ -1,7 +1,9 @@
-import { Message } from './message.model';
+import { ChatMessage } from './message.model';
+import { User } from './user.model';
 
 export interface Chat {
     id: string;
-    userId: string;
-    messages: Message[];
+    users: User[];
+    messages: ChatMessage[];
+    name: string;
 }

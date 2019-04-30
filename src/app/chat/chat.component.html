@@ -2,40 +2,40 @@
   <div class="d-flex flex-column" style="height: 100%;">
     <div class="d-flex flex-row">
       <div class="flex-grow-1">
-          <h1>Chat</h1>
+          Chat (<span *ngIf="isConnected$ | async; else disconnectedBlock">connected</span>)<ng-template #disconnectedBlock>disconnected</ng-template>
       </div>
       <div class="logOutBtnBlock">
           <button type="button" class="btn btn-secondary" (click)="logout()">Logout</button>
       </div>
     </div>
-    <div class="container-fluid flex-grow-1">
+    <div *ngIf="isConnected$ | async; else loadingBlock" class="container-fluid flex-grow-1">
       <div class="row mainBlock" style="height: 100%;">
-          <div class="col-3 d-flex flex-column p-0" >
+          <div class="col-0 col-md-3 d-flex flex-column p-0 chatsColumn" >
             <div *ngIf="inProgress$ | async; else elseBlock">In progress</div>
             <ng-template #elseBlock>
                 <div *ngIf="usersError$ | async; else elseBlockError">Error</div>
                 <ng-template #elseBlockError>
                     <!-- <ul class="heroes">
                       <li *ngFor="let user of users$ | async">
-                        <span class="badge">{{user.name}}</span>
+                        <span class="badge">{{user.login}}</span>
                       </li>
                     </ul> -->
                     <ul class="list-group">
-                        <li *ngFor="let user of users$ | async" class="list-group-item" 
-                          [class.active]="(currUser$ | async) != null && (currUser$ | async).id == user.id"
-                         (click)="onUserSelect(user.id)">{{ user.name }}
+                        <li *ngFor="let chat of chats$ | async" class="list-group-item" 
+                          [class.active]="(currChat$ | async) != null && (currChat$ | async).id == chat.id"
+                        (click)="onChatSelect(chat.id)">{{ chat.name }}
                         </li>
                       </ul>
                   </ng-template>
             </ng-template>
           </div>
-          <div class="col-9 d-flex flex-column p-0">
+          <div class="col-12 col-md-9 d-flex flex-column p-0 messagesColumns">
               <div class="w-100 flex-grow-1 d-flex flex-column flex-column-reverse messagesList">
                 <div 
-                  [class.align-self-end]="(messages$ | async) [(messages$ | async).length-i-1].dir==0"
-                  [class.border-info]="(messages$ | async)[(messages$ | async).length-i-1].dir==0"
-                  [class.align-self-start]="(messages$ | async)[(messages$ | async).length-i-1].dir==1"
-                  [class.border-success]="(messages$ | async)[(messages$ | async).length-i-1].dir==1"
+                  [class.align-self-end]="(messages$ | async) [(messages$ | async).length-i-1].userId==(userId$ | async)"
+                  [class.border-info]="(messages$ | async)[(messages$ | async).length-i-1].userId==(userId$ | async)"
+                  [class.align-self-start]="(messages$ | async)[(messages$ | async).length-i-1].userId!=(userId$ | async)"
+                  [class.border-success]="(messages$ | async)[(messages$ | async).length-i-1].userId!=(userId$ | async)"
                   class="messageItem border rounded"
                   *ngFor="let msg of messages$ | async; let i = index">
                   <app-message [text]="(messages$ | async)[(messages$ | async).length-i-1].text"></app-message>
@@ -44,7 +44,7 @@
               <div class="w-100 align-self-end">
                 <div class="d-flex flex-row">
                   <div class="flex-grow-1">
-                    <textarea [(ngModel)]="msgText" class="messageTextArea" rows="5"></textarea>
+                    <textarea [(ngModel)]="msgText" class="messageTextArea" rows="3"></textarea>
                   </div>
                   <div class="sendBtn">
                       <button type="button" class="btn btn-secondary" (click)="send()" [disabled]="msgText.trim() === ''">Send</button>
@@ -54,5 +54,13 @@
           </div>
       </div>
     </div>
+    <ng-template #loadingBlock>
+        <div *ngIf="isInitialized$ | async; else loadingBlock">
+          Loading...
+        </div>
+        <ng-template #loadingBlock>
+            Connecting...
+        </ng-template>
+    </ng-template>
   </div>
 </div>

@@ -6,6 +6,6 @@ export class ChatService {
   constructor(private http: HttpClient) {}
 
   getUsers() {
-    return this.http.get('http://localhost:4200/api/users');
+    return this.http.get('/api/users');
   }
 }

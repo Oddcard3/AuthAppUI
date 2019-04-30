@@ -3,6 +3,8 @@ export enum EMessageDirection {
     Outgoing = 1
 }
 
+
+// TODO: remove
 export interface Message {
     id: string;
     chatId: string;
@@ -10,4 +12,13 @@ export interface Message {
     text: string;
     dir: EMessageDirection;
     ts: number;
+}
+
+export interface ChatMessage {
+    id: string;
+    ts: number;
+    chatId: string;
+    userId: string;
+    text: string;
+    dir: EMessageDirection;
 }

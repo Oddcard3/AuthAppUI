@@ -1,13 +1,13 @@
 import { EChatActions, ChatActionTypes } from '../actions/chat.actions';
 import { initialChatState, IChatState } from '../state/chat.state';
-import { Message } from '../../models/message.model';
+import { Message, ChatMessage } from '../../models/message.model';
 import { Chat } from '../../models/chat.model';
 import { ChatActions } from '../actions';
 
 
 const messagesLimit = 100;
 
-function lastNMessages(messages: Message[], n: number): Message[] {
+function lastNMessages(messages: ChatMessage[], n: number): ChatMessage[] {
     if (messages.length <= n) {
         return messages;
     }
@@ -15,11 +15,25 @@ function lastNMessages(messages: Message[], n: number): Message[] {
     return messages.filter((_, idx) => idx >= firstN);
 }
 
-export const chatReducers = (
-    state = initialChatState,
-    action: ChatActionTypes
-): IChatState => {
+export function chatReducers(state = initialChatState, action: ChatActionTypes): IChatState {
+// export const chatReducers = (
+//     state = initialChatState,
+//     action: ChatActionTypes
+// ): IChatState => {
     switch (action.type) {
+        case EChatActions.Connected: {
+            return {
+                ...state,
+                connected: true
+            };
+        }
+        case EChatActions.Disconnected: {
+            return {
+                ...state,
+                connected: false,
+                chatsLoaded: false
+            };
+        }
         case EChatActions.GetUsers: {
             return {
                 ...state,
@@ -68,7 +82,7 @@ export const chatReducers = (
                     ...state,
                     loadChat: false,
                     selectedChat: chatId,
-                    selectedUser: action.payload.userId,
+                    // selectedUser: action.payload.userId,
                     chats: [...state.chats, Object.assign({}, action.payload)]
                 };
             } else {
@@ -76,7 +90,7 @@ export const chatReducers = (
                     ...state,
                     loadChat: false,
                     selectedChat: chatId,
-                    selectedUser: action.payload.userId, // TODO: fix code duplication with if branch
+                    // selectedUser: action.payload.userId, // TODO: fix code duplication with if branch
                     chats: state.chats.map(
                         (c, idx) => idx !== chatIdx ?
                         c :
@@ -99,10 +113,11 @@ export const chatReducers = (
             };
         }
         case EChatActions.IncomingMessage: {
-            const chatId = action.payload.message.chatId;
+            const chatId = action.payload.chatId;
             const chatIdx = state.chats.map(chat => chat.id).indexOf(chatId);
             if (chatIdx === -1) {
                 // TODO: error!
+                console.log('Failed to find chat with id ' + chatId);
                 return state;
             } else {
                 return {
@@ -111,11 +126,20 @@ export const chatReducers = (
                         (c, idx) => idx !== chatIdx ?
                         c :
                         Object.assign({}, c, {
-                            messages: lastNMessages([...c.messages, action.payload.message], messagesLimit)
+                            messages: lastNMessages([...c.messages, action.payload], messagesLimit)
                         })
                     )
                 };
             }
+        }
+        case EChatActions.InitialChats: {
+            return {
+                ...state,
+                userId: action.payload.userId,
+                chats: action.payload.chats,
+                selectedChat: action.payload.chats.length > 0 ? action.payload.chats[0].id : null,
+                chatsLoaded: true
+            };
         }
         default:
         return state;

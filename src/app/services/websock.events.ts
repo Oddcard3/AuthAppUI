@@ -1,7 +1,7 @@
 export const WS = {
     ON: {
         CHATS: 'chats',
-        MESSAGE: 'message'
+        MESSAGE: 'send-msg'
     },
     SEND: {
         SEND_MSG: 'send-msg'
